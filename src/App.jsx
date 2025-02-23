@@ -9,14 +9,10 @@ function App() {
   const fileInputRef = useRef(null)
   console.log("🚀 ~ SideBar ~ file:", file)
 
-  const handleUploadFile = () => {
-    fileInputRef.current.click();
-  }
-
   return (
     <div className='flex'>
-      <SideBar setFile={setFile} fileInputRef={fileInputRef} handleUploadFile={handleUploadFile} />
-      <ChatbotScreen setFile={setFile} fileInputRef={fileInputRef} handleUploadFile={handleUploadFile} />
+      <SideBar setFile={setFile} fileInputRef={fileInputRef}  />
+      <ChatbotScreen file={file} setFile={setFile} fileInputRef={fileInputRef}  />
     </div>
   )
 }
