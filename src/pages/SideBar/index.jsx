@@ -4,14 +4,8 @@ import { FiPlus } from "react-icons/fi";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
 import LoginBox from './LoginBox';
 
-const SideBar = () => {
-    const [file, setFile] = useState("")
-    const fileInputRef = useRef(null)
-    console.log("🚀 ~ SideBar ~ file:", file)
-
-    const handleUploadFile = () => {
-        fileInputRef.current.click();
-    }
+const SideBar = ({setFile, fileInputRef, handleUploadFile}) => {
+    
 
     const onChangeInput = (event) => {
         setFile(event.target.files[0])
