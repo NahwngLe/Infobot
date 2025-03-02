@@ -6,6 +6,8 @@ const ChatbotScreen = ({ file, setFile }) => {
     const fileInputRef = useRef(null);
     const [pdfId, setPdfId] = useState(null);
     const [isLoading, setIsLoading] = useState(false); // State loading
+    const [context, setContext] = useState("")
+    console.log("🚀 ~ ChatbotScreen ~ context:", context)
 
     const handleUploadFile = () => {
         fileInputRef.current.click();
@@ -18,6 +20,7 @@ const ChatbotScreen = ({ file, setFile }) => {
                 const response = await pdfApi.getTextFromPdf(file);
                 console.log(response);
                 setPdfId(response.pdf_id); // Lưu pdf_id vào state
+                setContext(response.content)
             } catch (error) {
                 console.log('Failed to fetch: ', error);
             } finally {
@@ -36,12 +39,19 @@ const ChatbotScreen = ({ file, setFile }) => {
                         <div className="text-center text-blue-500 text-xl font-bold mt-4">Đang xử lý file...</div>
                     ) : (
                         pdfId && (
-                            <iframe
-                                src={`http://127.0.0.1:8000/pdf/get-pdf/${pdfId}`}
-                                width="100%"
-                                height="100%"
-                                title="PDF Viewer"
-                            />
+                            <div className='h-screen w-[37vw]'>
+                                <iframe
+                                    src={`http://127.0.0.1:8000/pdf/get-pdf/${pdfId}`}
+                                    width="100%"
+                                    height="100%"
+                                    title="PDF Viewer"
+                                />
+                                {/* <p
+                                className='text-black text-xl'
+                                >
+                                    {context}
+                                </p> */}
+                            </div>
                         )
                     )}
                 </div>
