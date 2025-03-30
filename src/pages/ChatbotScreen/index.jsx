@@ -16,6 +16,7 @@ const ChatbotScreen = ({ file, setFile }) => {
     useEffect(() => {
         const fetchPdfText = async () => {
             setIsLoading(true); // Bắt đầu loading
+            
             try {
                 const response = await pdfApi.getTextFromPdf(file);
                 console.log(response);
@@ -24,7 +25,7 @@ const ChatbotScreen = ({ file, setFile }) => {
             } catch (error) {
                 console.log('Failed to fetch: ', error);
             } finally {
-                setIsLoading(false); // Dừng loading dù thành công hay lỗi
+                setTimeout(() => setIsLoading(false), 1000);; // Dừng loading dù thành công hay lỗi
             }
         };
 
@@ -36,7 +37,18 @@ const ChatbotScreen = ({ file, setFile }) => {
             {file ? (
                 <div>
                     {isLoading ? (
-                        <div className="text-center text-blue-500 text-xl font-bold mt-4">Đang xử lý file...</div>
+                        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
+                            <div className="bg-white py-8 px-28 rounded-lg shadow-lg flex flex-col items-center">
+                                <div className="animate-spin h-20 w-20 border-4 border-pink-500 border-t-transparent rounded-full"></div>
+                                <p className="mt-10 text-gray-700 text-4xl">Đang tải lên PDF</p>
+                                <button
+                                    className="mt-10 mb-auto px-8 py-4 bg-red-500 text-white rounded-lg"
+                                    onClick={() => setIsLoading(false)}
+                                >
+                                    Close
+                                </button>
+                            </div>
+                        </div>
                     ) : (
                         pdfId && (
                             <div className='h-screen w-[37vw]'>
@@ -45,6 +57,7 @@ const ChatbotScreen = ({ file, setFile }) => {
                                     width="100%"
                                     height="100%"
                                     title="PDF Viewer"
+                                    allow="fullscreen"
                                 />
                                 {/* <p
                                 className='text-black text-xl'
