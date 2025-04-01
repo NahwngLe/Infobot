@@ -5,7 +5,8 @@ import { MdOutlineCreateNewFolder } from "react-icons/md";
 import PdfList from './PdfList';
 
 const SideBar = ({setFile}) => {
-    
+    const [pdflist, setPdflist] = useState([])
+
     const fileInputRef = useRef(null)
     
     const handleUploadFile = () => {

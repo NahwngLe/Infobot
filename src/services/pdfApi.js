@@ -13,6 +13,10 @@ class PdfApi {
             }
         })
     }
+
+    getPdfList = (user) => {
+        
+    }
 }
 
 const pdfApi = new PdfApi();
