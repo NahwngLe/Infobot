@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { FaCircleInfo } from "react-icons/fa6";
 import { FiPlus } from "react-icons/fi";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
-import LoginBox from './LoginBox';
+import PdfList from './PdfList';
 
 const SideBar = ({setFile}) => {
     
@@ -49,7 +49,7 @@ const SideBar = ({setFile}) => {
                 </button>
             </div>
             <div className="history-container self-center mt-6 w-[90%]">
-                <LoginBox />
+                <PdfList />
             </div>
         </div>
     )
