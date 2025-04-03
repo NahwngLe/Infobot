@@ -45,6 +45,7 @@ const PdfList = ({ user, setPdfId }) => {
                 key={pdf.pdf_id} 
                 className="text-white bg-transparent p-2 rounded-xl text-lg cursor-pointer  
                             hover:bg-gray-600 hover:bg-opacity-50
+                            active:bg-gray-600 active:bg-opacity-40
                 "
                 onClick={() => handleClick(pdf.pdf_id)}
                 >
