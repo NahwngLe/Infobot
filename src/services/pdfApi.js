@@ -18,6 +18,18 @@ class PdfApi {
         const url = `/pdf/get-all-pdf/${user}`;
         return axiosClient.get(url);
     }
+
+    createQuizFromId = (id) => {
+        const url = `/pdf/create-quiz/${id}`
+
+        return axiosClient.get(url);
+    }
+
+    getQuiz = (id) => {
+        const url = `/pdf/get-quiz/${id}`
+
+        return axiosClient.get(url);
+    }
 }
 
 const pdfApi = new PdfApi();

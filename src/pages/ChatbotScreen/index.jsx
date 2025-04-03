@@ -24,7 +24,8 @@ const ChatbotScreen = ({ file, setFile, fileInputRef, user, pdfId, setPdfId }) =
             } catch (error) {
                 console.log('Failed to fetch: ', error);
             } finally {
-                setTimeout(() => setIsLoading(false), 500); // Dừng loading dù thành công hay lỗi
+                setTimeout(() => setIsLoading(false), 500);
+                window.location.reload();
             }
         };
 
