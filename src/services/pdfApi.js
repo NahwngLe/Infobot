@@ -1,7 +1,7 @@
 import axiosClient from "./axiosClient"
 
 class PdfApi {
-    getTextFromPdf = (file) => {
+    upload = (file) => {
         const url = "/pdf/upload"
 
         const formData = new FormData()
@@ -15,7 +15,8 @@ class PdfApi {
     }
 
     getPdfList = (user) => {
-        
+        const url = `/pdf/get-all-pdf/${user}`;
+        return axiosClient.get(url);
     }
 }
 

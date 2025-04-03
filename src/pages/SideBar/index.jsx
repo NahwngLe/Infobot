@@ -4,10 +4,8 @@ import { FiPlus } from "react-icons/fi";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
 import PdfList from './PdfList';
 
-const SideBar = ({setFile}) => {
+const SideBar = ({setFile, fileInputRef, user, setPdfId, pdfId}) => {
     const [pdflist, setPdflist] = useState([])
-
-    const fileInputRef = useRef(null)
     
     const handleUploadFile = () => {
         fileInputRef.current.click();
@@ -49,9 +47,7 @@ const SideBar = ({setFile}) => {
                     <p>Tạo thư mục mới</p>
                 </button>
             </div>
-            <div className="history-container self-center mt-6 w-[90%]">
-                <PdfList />
-            </div>
+            <PdfList user={user} setPdfId={setPdfId} />
         </div>
     )
 }
