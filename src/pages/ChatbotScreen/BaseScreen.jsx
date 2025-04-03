@@ -1,7 +1,7 @@
 import React from 'react'
 import UploadFile from './UploadFile'
 
-const BaseScreen = ({setFile, fileInputRef, handleUploadFile, pdfId}) => {
+const BaseScreen = ({setFile, fileInputRef, handleUploadFile}) => {
     return (
         <div className="title flex justify-center text-black w-[80%]">
             <div className="talkto mt-24 inline-block">

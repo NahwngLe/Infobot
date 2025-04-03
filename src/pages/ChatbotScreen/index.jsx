@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import pdfApi from '../../services/pdfApi';
 import BaseScreen from './BaseScreen';
+import OperateScreen from './OperateScreen';
 
 const ChatbotScreen = ({ file, setFile, fileInputRef, user, pdfId, setPdfId }) => {
     const [isLoading, setIsLoading] = useState(false); // State loading
@@ -49,20 +50,9 @@ const ChatbotScreen = ({ file, setFile, fileInputRef, user, pdfId, setPdfId }) =
                     </div>
                 </div>
             ) : pdfId ? (
-                <div className='h-screen w-[80vw] bg-black'>
-                    <div className='h-screen w-[37vw]'>
-                        <iframe
-                            key={pdfId}
-                            src={`http://127.0.0.1:8000/pdf/get-pdf/${pdfId}`}
-                            width="100%"
-                            height="100%"
-                            title="PDF Viewer"
-                            allow="fullscreen"
-                        />
-                    </div>
-                </div>
+                <OperateScreen pdfId={pdfId} />
             ) : (
-                <BaseScreen pdfId={pdfId} setFile={setFile} fileInputRef={fileInputRef} handleUploadFile={handleUploadFile} />
+                <BaseScreen setFile={setFile} fileInputRef={fileInputRef} handleUploadFile={handleUploadFile} />
             )}
         </>
     );
