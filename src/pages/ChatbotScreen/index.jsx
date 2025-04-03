@@ -6,7 +6,6 @@ import OperateScreen from './OperateScreen';
 const ChatbotScreen = ({ file, setFile, fileInputRef, user, pdfId, setPdfId }) => {
     const [isLoading, setIsLoading] = useState(false); // State loading
     const [context, setContext] = useState("")
-    console.log("🚀 ~ ChatbotScreen ~ context:", context)
 
     const handleUploadFile = () => {
         fileInputRef.current.click();

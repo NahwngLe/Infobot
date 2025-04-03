@@ -1,6 +1,6 @@
 import React from 'react'
 
-const OperateScreen = () => {
+const OperateScreen = ({pdfId}) => {
     return (
         <div className='h-screen w-[80vw] bg-black'>
             <div className='h-screen w-[37vw]'>
