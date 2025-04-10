@@ -4,7 +4,7 @@ import { FiPlus } from "react-icons/fi";
 import { MdOutlineCreateNewFolder } from "react-icons/md";
 import PdfList from './PdfList';
 
-const SideBar = ({setFile, fileInputRef, user, setPdfId, pdfId}) => {
+const SideBar = ({setFile, fileInputRef, user, setPdfId}) => {
     const [pdflist, setPdflist] = useState([])
     
     const handleUploadFile = () => {

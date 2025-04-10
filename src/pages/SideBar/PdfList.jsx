@@ -1,34 +1,33 @@
 import React, { useEffect, useState } from 'react'
 import pdfApi from '../../services/pdfApi'
+import { useNavigate } from 'react-router-dom';
 
-const PdfList = ({ user, setPdfId }) => {
-  const [listPdf, setListPdf] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
+const PdfList = ({ user }) => {
+  const [listPdf, setListPdf] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate(); // 👈 thêm dòng này
 
   useEffect(() => {
     const fetchListPdf = async () => {
-      setIsLoading(true)
-
+      setIsLoading(true);
       try {
-        const response = await pdfApi.getPdfList(user)
-        console.log("Fetched PDFs:", response)
-        setListPdf(response)
+        const response = await pdfApi.getPdfList(user);
+        setListPdf(response);
       } catch (error) {
-        console.error("Failed to fetch PDF list:", error)
+        console.error("Failed to fetch PDF list:", error);
       } finally {
-        setTimeout(() => setIsLoading(false), 500)
+        setTimeout(() => setIsLoading(false), 500);
       }
-    }
+    };
 
     if (user) {
-      fetchListPdf()
+      fetchListPdf();
     }
-  }, [user])
-
+  }, [user]);
 
   const handleClick = (id) => {
-    setPdfId(id)
-  }
+    navigate(`/operate/${id}`); // 👈 chuyển hướng sang trang operate
+  };
 
   return (
     <div className="p-4">
@@ -37,26 +36,22 @@ const PdfList = ({ user, setPdfId }) => {
       ) : !user ? (
         <p className="text-white text-center">Cần đăng nhập để lưu lịch sử</p>
       ) : (
-        <div className="flex flex-col space-y-2 ">
-          {listPdf.map(pdf => {
-            // console.log("Key:", pdf.pdf_id) // Log key ra console
-            return (
-              <div 
-                key={pdf.pdf_id} 
-                className="text-white bg-transparent p-2 rounded-xl text-lg cursor-pointer  
-                            hover:bg-gray-600 hover:bg-opacity-50
-                            active:bg-gray-600 active:bg-opacity-40
-                "
-                onClick={() => handleClick(pdf.pdf_id)}
-                >
-                  {pdf.pdf_name}
-              </div>
-            )
-          })}
+        <div className="flex flex-col space-y-2">
+          {listPdf.map(pdf => (
+            <div 
+              key={pdf.pdf_id} 
+              className="text-white bg-transparent p-2 rounded-xl text-lg cursor-pointer  
+                          hover:bg-gray-600 hover:bg-opacity-50
+                          active:bg-gray-600 active:bg-opacity-40"
+              onClick={() => handleClick(pdf.pdf_id)}
+            >
+              {pdf.pdf_name}
+            </div>
+          ))}
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
 export default PdfList
