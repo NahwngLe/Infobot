@@ -10,30 +10,33 @@ const OperateScreen = ({ pdfId }) => {
     const [isChat, setIsChat] = useState(false)
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
-    console.log(message);
     console.log("Quiz content: ", quiz);
     
     useEffect(() => {
         const handleCheckId = async () => {
             try {
                 const response = await pdfApi.getQuiz(pdfId)
-                if (response.exists) {
+                console.log("Check quiz");
+
+                if (response.length > 0) {
+                    console.log("exists quiz");
+                    
                     setMessage(response.message);
                     setError(""); 
                     setQuiz(response)
                 }
             } catch (err) {
                 if (err.response && err.response.status === 404) {
-                    setError(err.response.data.detail); // ID not found
-                    setMessage(""); // Clear message if ID not found
+                    setError(err.response.data.detail); 
+                    setMessage("");
                 } else {
                     setError("Something went wrong. Please try again.");
-                    setMessage(""); // Clear message if an error occurs
+                    setMessage(""); 
                 }
             }
         };
 
-        handleCheckId()
+        pdfId && handleCheckId()
     }, [])
 
     const handleCreateQuiz = async (id) => {
