@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight  } from "react-icons/md";
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
 const QuizDetail = () => {
   const location = useLocation();
@@ -10,8 +10,17 @@ const QuizDetail = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selected, setSelected] = useState(null);
   const [showAnswer, setShowAnswer] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const currentQuiz = quizzes[currentIndex];
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000); // 1s loading
+
+    return () => clearTimeout(timeout);
+  }, []);
 
   const handleSelect = (index) => {
     if (selected !== null) return; // Không cho chọn lại
@@ -40,6 +49,14 @@ const QuizDetail = () => {
 
   if (!quizDetail) {
     return <p className="text-center mt-10 text-red-500">Không có dữ liệu quiz</p>;
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center w-full h-screen bg-gray-900">
+        <div className="animate-spin h-16 w-16 border-4 border-pink-500 border-t-transparent rounded-full"></div>
+      </div>
+    );
   }
 
   return (
@@ -86,7 +103,6 @@ const QuizDetail = () => {
           </div>
         )}
 
-        {/* Navigation buttons */}
         <div className="flex justify-between mt-6">
           <button
             onClick={prevQuestion}
@@ -101,7 +117,7 @@ const QuizDetail = () => {
             disabled={currentIndex === quizzes.length - 1}
             className="flex items-center gap-2 px-4 py-2 bg-pink-500 text-white rounded hover:bg-pink-600 disabled:opacity-50"
           >
-            Tiếp <MdKeyboardArrowRight  size={18} />
+            Tiếp <MdKeyboardArrowRight size={18} />
           </button>
         </div>
       </div>
