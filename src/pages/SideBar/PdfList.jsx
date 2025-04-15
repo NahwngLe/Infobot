@@ -40,9 +40,11 @@ const PdfList = ({ user }) => {
           {listPdf.map(pdf => (
             <div 
               key={pdf.pdf_id} 
-              className="text-white bg-transparent p-2 rounded-xl text-lg cursor-pointer  
+              className="text-white bg-transparent p-2 rounded-sm text-lg cursor-pointer  
                           hover:bg-gray-600 hover:bg-opacity-50
-                          active:bg-gray-600 active:bg-opacity-40"
+                          active:bg-gray-600 active:bg-opacity-40
+                          mt-2
+                          "
               onClick={() => handleClick(pdf.pdf_id)}
             >
               {pdf.pdf_name}

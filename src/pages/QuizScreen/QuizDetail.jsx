@@ -5,6 +5,7 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 const QuizDetail = () => {
   const location = useLocation();
   const quizDetail = location.state?.quizDetail;
+  console.log("🚀 ~ QuizDetail ~ quizDetail:", quizDetail)
 
   const quizzes = quizDetail?.quizzes || [];
   const [currentIndex, setCurrentIndex] = useState(0);
