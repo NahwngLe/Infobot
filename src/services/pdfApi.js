@@ -19,12 +19,11 @@ class PdfApi {
         return axiosClient.get(url);
     }
 
-    createQuizFromId = (id) => {
-        const url = `/pdf/create-quiz/${id}`
-
-        return axiosClient.get(url);
-    }
-
+    createQuizFromId = (id, language = 'eng') => {
+        const url = `/pdf/create-quiz/${id}?language_of_quiz=${language}`
+        return axiosClient.get(url)
+      }
+      
     getQuiz = (id) => {
         const url = `/pdf/get-quiz/${id}`
 

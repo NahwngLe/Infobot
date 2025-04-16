@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom"; // 👈 Thêm useNavigate
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
 const QuizDetail = () => {
   const location = useLocation();
+  const navigate = useNavigate(); // 👈 Khởi tạo navigate
   const quizDetail = location.state?.quizDetail;
-  console.log("🚀 ~ QuizDetail ~ quizDetail:", quizDetail)
 
   const quizzes = quizDetail?.quizzes || [];
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -16,15 +16,28 @@ const QuizDetail = () => {
   const currentQuiz = quizzes[currentIndex];
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setIsLoading(false);
-    }, 1000); // 1s loading
+  const timeout = setTimeout(() => {
+    setIsLoading(false);
+  }, 1000);
 
-    return () => clearTimeout(timeout);
-  }, []);
+  const handleKeyDown = (e) => {
+    if (e.key === "ArrowLeft") {
+      prevQuestion();
+    } else if (e.key === "ArrowRight") {
+      nextQuestion();
+    }
+  };
+
+  window.addEventListener("keydown", handleKeyDown);
+  
+  return () => {
+    clearTimeout(timeout);
+    window.removeEventListener("keydown", handleKeyDown);
+  };
+}, [currentIndex]); 
 
   const handleSelect = (index) => {
-    if (selected !== null) return; // Không cho chọn lại
+    if (selected !== null) return;
     setSelected(index);
     setShowAnswer(true);
   };
@@ -62,6 +75,15 @@ const QuizDetail = () => {
 
   return (
     <div className="flex flex-col items-center w-full p-10 text-white bg-gray-900 h-screen overflow-y-auto">
+      {/* 👇 Nút quay lại */}
+      <button
+        onClick={() => navigate(-1)}
+        className="mb-10 self-start text-pink-400 border-pink-400 border p-1 rounded-md
+                   hover:underline hover:bg-pink-400 hover:text-white "
+      >
+        ← Quay lại
+      </button>
+
       <h2 className="text-2xl font-bold mb-6">
         📘 Quiz: {quizDetail.quiz_name}
       </h2>

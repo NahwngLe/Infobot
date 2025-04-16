@@ -8,6 +8,9 @@ const QuizScreen = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [creating, setCreating] = useState(false)
   const [error, setError] = useState("")
+  const [showModal, setShowModal] = useState(false)
+  const [language, setLanguage] = useState('eng')
+  console.log("🚀 ~ QuizScreen ~ language:", language)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -16,6 +19,7 @@ const QuizScreen = () => {
 
   const fetchQuiz = async () => {
     try {
+      setShowModal(false)
       const response = await pdfApi.getQuiz(pdfId)
       setQuiz(response)
       setError("")
@@ -40,13 +44,18 @@ const QuizScreen = () => {
     if (!pdfId) return
     try {
       setCreating(true)
-      await pdfApi.createQuizFromId(pdfId)
-      await fetchQuiz() // reload lại danh sách quiz
+      await pdfApi.createQuizFromId(pdfId, language)
+      await fetchQuiz()
     } catch (err) {
       alert("Tạo quiz thất bại.")
     } finally {
       setCreating(false)
+      setShowModal(false)
     }
+  }
+
+  const handleOpenModal = () => {
+    setShowModal(true)
   }
 
   if (isLoading) {
@@ -75,13 +84,11 @@ const QuizScreen = () => {
         <h2 className='text-2xl mt-6'>🎮 Các quiz đã có</h2>
 
         <button
-          className="mt-4 mb-2 px-4 py-2 bg-pink-500 hover:bg-pink-600 rounded text-white disabled:opacity-50"
-          onClick={handleCreateQuiz}
-          disabled={creating}
+          className="mt-4 mb-2 px-4 py-2 bg-pink-500 hover:bg-pink-600 rounded text-white"
+          onClick={handleOpenModal}
         >
-          {creating ? "Đang tạo..." : "➕ Tạo Quiz mới"}
+          ➕ Tạo Quiz mới
         </button>
-
 
         {quiz && quiz.length > 0 ? (
           quiz.map((quizDetail, index) => (
@@ -97,6 +104,39 @@ const QuizScreen = () => {
           <p className='mt-6'>❌ No quiz found</p>
         )}
       </div>
+
+      {/* Language Selection Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h3 className="text-lg font-semibold mb-4 text-gray-800">🌐 Chọn ngôn ngữ cho Quiz</h3>
+            <select
+              value={language}
+              onChange={(e) => setLanguage(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded mb-4"
+            >
+              <option value="eng">🇬🇧 English</option>
+              <option value="vn">🇻🇳 Tiếng Việt</option>
+            </select>
+            <div className="flex justify-end">
+              <button
+                className="mr-2 px-4 py-2 bg-gray-300 text-gray-800 rounded disabled:opacity-50"
+                onClick={() => setShowModal(false)}
+                disabled={creating}
+              >
+                Hủy
+              </button>
+              <button
+                className="px-4 py-2 bg-pink-500 text-white rounded hover:bg-pink-600 disabled:opacity-50"
+                onClick={handleCreateQuiz}
+                disabled={creating}
+              >
+                {creating ? "Đang tạo..." : "Tạo Quiz"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
