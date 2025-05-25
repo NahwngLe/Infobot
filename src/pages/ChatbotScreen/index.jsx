@@ -41,6 +41,7 @@ const ChatbotScreen = ({ file, setFile, fileInputRef, user, pdfId, setPdfId }) =
                     <div className="bg-white py-8 px-28 rounded-lg shadow-lg flex flex-col items-center">
                         <div className="animate-spin h-20 w-20 border-4 border-pink-500 border-t-transparent rounded-full"></div>
                         <p className="mt-10 text-gray-700 text-4xl">Đang tải lên PDF</p>
+                        <p className="mt-10 text-gray-700 text-sm">Quá trình tải lên sẽ lâu nếu PDF lớn</p>
                         <button
                             className="mt-10 mb-auto px-8 py-4 bg-red-500 text-white rounded-lg"
                             onClick={() => setIsLoading(false)}

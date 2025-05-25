@@ -31,8 +31,8 @@ function App() {
           }
         />
         <Route path="/operate/:pdfId" element={<OperateScreen />}>
-          <Route index element={<OperateActions />} />
-          <Route path="quiz" element={<QuizScreen />} />
+          {/* <Route index element={<OperateActions />} /> */}
+          <Route index element={<QuizScreen />} />
           <Route path="detail/:quizName" element={<QuizDetail />} />
         </Route>
       </Routes>

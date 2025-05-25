@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const PdfList = ({ user }) => {
   const [listPdf, setListPdf] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate(); // 👈 thêm dòng này
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchListPdf = async () => {
@@ -38,8 +38,8 @@ const PdfList = ({ user }) => {
       ) : (
         <div className="flex flex-col space-y-2">
           {listPdf.map(pdf => (
-            <div 
-              key={pdf.pdf_id} 
+            <div
+              key={pdf.pdf_id}
               className="text-white bg-transparent p-2 rounded-sm text-lg cursor-pointer  
                           hover:bg-gray-600 hover:bg-opacity-50
                           active:bg-gray-600 active:bg-opacity-40

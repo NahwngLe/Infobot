@@ -1,40 +1,60 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom"; // 👈 Thêm useNavigate
+import { useLocation, useNavigate } from "react-router-dom";
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
 const QuizDetail = () => {
   const location = useLocation();
-  const navigate = useNavigate(); // 👈 Khởi tạo navigate
+  const navigate = useNavigate();
   const quizDetail = location.state?.quizDetail;
 
   const quizzes = quizDetail?.quizzes || [];
+
+  const [shuffledQuizzes, setShuffledQuizzes] = useState([]);
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selected, setSelected] = useState(null);
   const [showAnswer, setShowAnswer] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  const currentQuiz = quizzes[currentIndex];
+  // Shuffle khi quizDetail thay đổi
+  useEffect(() => {
+    if (quizzes.length > 0) {
+      const shuffled = [...quizzes];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      setShuffledQuizzes(shuffled);
+      setCurrentIndex(0);
+      setSelected(null);
+      setShowAnswer(false);
+    }
+  }, [quizDetail]); // chạy mỗi khi quizDetail thay đổi
+
+  // Thay đổi currentQuiz lấy từ shuffledQuizzes
+  const currentQuiz = shuffledQuizzes[currentIndex];
+
 
   useEffect(() => {
-  const timeout = setTimeout(() => {
-    setIsLoading(false);
-  }, 1000);
+    const timeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
 
-  const handleKeyDown = (e) => {
-    if (e.key === "ArrowLeft") {
-      prevQuestion();
-    } else if (e.key === "ArrowRight") {
-      nextQuestion();
-    }
-  };
+    const handleKeyDown = (e) => {
+      if (e.key === "ArrowLeft") {
+        prevQuestion();
+      } else if (e.key === "ArrowRight") {
+        nextQuestion();
+      }
+    };
 
-  window.addEventListener("keydown", handleKeyDown);
-  
-  return () => {
-    clearTimeout(timeout);
-    window.removeEventListener("keydown", handleKeyDown);
-  };
-}, [currentIndex]); 
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      clearTimeout(timeout);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [currentIndex]);
 
   const handleSelect = (index) => {
     if (selected !== null) return;

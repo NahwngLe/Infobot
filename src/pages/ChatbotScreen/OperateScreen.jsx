@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Outlet } from "react-router-dom";
+import { Document, Page, pdfjs } from 'react-pdf'
+import pdfApi from '../../services/pdfApi'
+import workerSrc from 'pdfjs-dist/build/pdf.worker.mjs?url';
+import 'react-pdf/dist/esm/Page/AnnotationLayer.css'
+import 'react-pdf/dist/esm/Page/TextLayer.css'
+
+pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
 
 const OperateScreen = () => {
+    const [pdfUrl, setPdfUrl] = useState(null)
+    const [numPages, setNumPages] = useState(null)
     const [isLoading, setIsLoading] = useState(true);
     const { pdfId } = useParams();
     console.log("OperateScreen");
-    
+
     useEffect(() => {
         const timer = setTimeout(() => {
             setIsLoading(false);
@@ -14,17 +23,43 @@ const OperateScreen = () => {
         return () => clearTimeout(timer);
     }, []);
 
+
+    useEffect(() => {
+        fetchPdfUrl()
+    }, [pdfId])
+
+    const fetchPdfUrl = async () => {
+        try {
+            const response = await fetch(`http://127.0.0.1:8000/pdf/get-pdf/${pdfId}`)
+            if (!response.ok) {
+                throw new Error('Không thể tải PDF')
+            }
+            const blob = await response.blob()
+            const url = URL.createObjectURL(blob)
+            setPdfUrl(url)
+        } catch (err) {
+            console.error("Lỗi tải PDF", err)
+            setError("Lỗi tải PDF")
+        }
+    }
+
     return (
         <div className="pdf-screen h-screen w-[80vw] flex">
-            {/* Left: PDF Viewer */}
-            <div className="h-screen w-[37vw]">
-                <iframe
-                    key={pdfId}
-                    src={`http://127.0.0.1:8000/pdf/get-pdf/${pdfId}`}
-                    width="100%"
-                    height="100%"
-                    title="PDF Viewer"
-                />
+            {/* PDF Viewer (react-pdf) */}
+            <div className="h-screen w-[37vw] overflow-y-auto border-r border-gray-300">
+                {pdfUrl ? (
+                    <Document
+                        file={pdfUrl}
+                        onLoadSuccess={({ numPages }) => setNumPages(numPages)}
+                        onLoadError={(error) => console.error("Lỗi load PDF", error)}
+                    >
+                        {Array.from(new Array(numPages), (el, index) => (
+                            <Page key={`page_${index + 1}`} pageNumber={index + 1} width={550} />
+                        ))}
+                    </Document>
+                ) : (
+                    <p>Đang tải PDF...</p>
+                )}
             </div>
 
             {/* Right: Action Panel or Nested Routes */}

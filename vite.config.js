@@ -9,5 +9,14 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom', // dùng DOM giả lập
     setupFiles: './src/setupTests.js' // (tùy chọn) nơi khai báo custom matcher, v.v.
-  }
+  },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1/:8000',  // Địa chỉ của FastAPI
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '/api'),
+      },
+    },
+  },
 })
