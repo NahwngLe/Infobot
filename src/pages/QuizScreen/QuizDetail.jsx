@@ -8,7 +8,6 @@ const QuizDetail = () => {
   const quizDetail = location.state?.quizDetail;
 
   const quizzes = quizDetail?.quizzes || [];
-
   const [shuffledQuizzes, setShuffledQuizzes] = useState([]);
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -31,7 +30,6 @@ const QuizDetail = () => {
     }
   }, [quizDetail]); // chạy mỗi khi quizDetail thay đổi
 
-  // Thay đổi currentQuiz lấy từ shuffledQuizzes
   const currentQuiz = shuffledQuizzes[currentIndex];
 
 
