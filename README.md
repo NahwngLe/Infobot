@@ -18,7 +18,7 @@ This project is a React-based web application built with Vite, designed to inter
 -   **Routing:** React Router
 
 ## Folder Structure
-
+```
 nahwngle-infobot/
 ├── README.md
 ├── eslint.config.js
@@ -61,7 +61,7 @@ nahwngle-infobot/
 │   └── pdfApi.js
 └── utils/
 └── AuthContext.jsx
-
+```
 
 ## Setup Instructions
 
