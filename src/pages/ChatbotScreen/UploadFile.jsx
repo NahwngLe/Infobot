@@ -1,43 +1,80 @@
-import React from 'react'
-import { FaFileUpload } from "react-icons/fa";
+import React, { useState } from 'react'
+import { FaFileUpload, FaFileAlt } from "react-icons/fa";
 
-const UploadFile = ({setFile, fileInputRef, handleUploadFile}) => {
+const UploadFile = ({ setFile, fileInputRef, handleUploadFile }) => {
+    const [isDragging, setIsDragging] = useState(false);
 
     const onChangeInput = (event) => {
         setFile(event.target.files[0])
     }
 
+    const handleDragEnter = (e) => {
+        e.preventDefault();
+        setIsDragging(true);
+    };
+
+    const handleDragLeave = (e) => {
+        e.preventDefault();
+        setIsDragging(false);
+    };
+
+    const handleDrop = (e) => {
+        e.preventDefault();
+        setIsDragging(false);
+        const files = e.dataTransfer.files;
+        if (files.length > 0 && files[0].type === 'application/pdf') {
+            setFile(files[0]);
+        }
+    };
+
     return (
-        <div className="upload-container flex items-center justify-center absolute top-[30%] right-[7%] w-[60%] h-[60%] 
-                shadow-2xl shadow-purple-400/50 bg-white
-                rounded-xl">
-            <div className="border flex items-center justify-center flex-col
-                         border-purple-300 border-dashed bg-gray-50
-                         p-6 w-[90%] h-[83%] rounded-lg
-                         hover:bg-purple-200 hover:bg-opacity-30
-                         "
+        <div className="w-full max-w-2xl mx-auto">
+            <div
+                className={`
+                    relative rounded-xl border-2 border-dashed p-8
+                    flex flex-col items-center justify-center
+                    transition-all duration-200 ease-in-out
+                    ${isDragging
+                        ? 'border-blue-500 bg-blue-500/10'
+                        : 'border-gray-600 hover:border-blue-500 hover:bg-gray-800'
+                    }
+                `}
+                onDragEnter={handleDragEnter}
+                onDragOver={(e) => e.preventDefault()}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
                 onClick={handleUploadFile}
             >
-                <input type="file" hidden ref={fileInputRef} onChange={onChangeInput} />
-
-                <FaFileUpload 
-                className='w-20 h-20 shadow-none text-purple-500 bg-transparent ' 
+                <input
+                    type="file"
+                    hidden
+                    ref={fileInputRef}
+                    onChange={onChangeInput}
+                    accept=".pdf"
                 />
-                <h1 className="text-2xl font-semibold text-black mb-12 mt-6">
-                    Nhấp để tải lên PDF
-                </h1>
 
-                <div className="button-upload ">
-                    <button className="px-20 py-3 bg-purple-500 text-white text-lg rounded-lg
-                     hover:bg-purple-600 transition
-                     
-                     ">
-                        Tải PDF lên
-                    </button>
+                <div className="p-6 rounded-full bg-blue-500/10 mb-4">
+                    <FaFileUpload className="w-12 h-12 text-blue-500" />
                 </div>
+
+                <h2 className="text-2xl font-semibold mb-2">
+                    Upload your PDF
+                </h2>
+
+                <p className="text-gray-400 text-center mb-6">
+                    Drag and drop your file here, or click to select
+                </p>
+
+                <button className="btn-primary flex items-center space-x-2">
+                    <FaFileAlt className="w-4 h-4" />
+                    <span>Select PDF</span>
+                </button>
+
+                <p className="mt-4 text-sm text-gray-500">
+                    Supported format: PDF up to 50MB
+                </p>
             </div>
         </div>
-
     )
 }
 

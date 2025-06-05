@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Document, Page, pdfjs } from 'react-pdf'
 import pdfApi from '../../services/pdfApi'
-import 'react-pdf/dist/esm/Page/AnnotationLayer.css'
-import 'react-pdf/dist/esm/Page/TextLayer.css'
-import workerSrc from 'pdfjs-dist/build/pdf.worker.mjs?url';
 
-pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
 
 const QuizScreen = () => {
   const { pdfId } = useParams()
@@ -47,14 +42,15 @@ const QuizScreen = () => {
     }
   }
 
+  console.log("🚀 ~ QuizScreen ~ quiz:", quiz)
   const fetchPdfUrl = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/pdf/get-pdf/${pdfId}`)
-      if (!response.ok) {
+      const response = await pdfApi.getPdf(pdfId)
+      if (!response) {
         throw new Error('Không thể tải PDF')
       }
-      const blob = await response.blob()
-      const url = URL.createObjectURL(blob)
+      // const blob = await response.blob()
+      const url = URL.createObjectURL(response)
       setPdfUrl(url)
     } catch (err) {
       console.error("Lỗi tải PDF", err)
@@ -96,79 +92,64 @@ const QuizScreen = () => {
   }
 
   return (
-    <div className="pdf-screen h-screen w-[80vw] flex">
-      {/* PDF Viewer (react-pdf) */}
-      <div className="h-screen w-[37vw] overflow-y-auto border-r border-gray-300">
-        {pdfUrl ? (
-          <Document
-            file={pdfUrl}
-            onLoadSuccess={({ numPages }) => setNumPages(numPages)}
-            onLoadError={(error) => console.error("Lỗi load PDF", error)}
-          >
-            {Array.from(new Array(numPages), (el, index) => (
-              <Page key={`page_${index + 1}`} pageNumber={index + 1} width={550} />
-            ))}
-          </Document>
-        ) : (
-          <p>Đang tải PDF...</p>
-        )}
-      </div>
+    <div className="quiz-screen h-full w-full overflow-y-auto flex flex-col items-center bg-gray-900 text-white px-6 py-8 border-l border-gray-700">
+      <h2 className="text-3xl font-semibold mb-6">📋 Danh sách Quiz</h2>
 
-      {/* Quiz Area */}
-      <div className='quiz-screen h-screen w-[43vw] overflow-y-auto flex flex-col items-center bg-gray-800 text-white border-2 border-black'>
-        <h2 className='text-2xl mt-6'>🎮 Các quiz đã có</h2>
+      <button
+        className="mb-6 px-6 py-3 bg-pink-600 hover:bg-pink-700 transition rounded-xl shadow-lg text-white font-medium"
+        onClick={handleOpenModal}
+      >
+        ➕ Tạo Quiz mới
+      </button>
 
-        <button
-          className="mt-4 mb-2 px-4 py-2 bg-pink-500 hover:bg-pink-600 rounded text-white"
-          onClick={handleOpenModal}
-        >
-          ➕ Tạo Quiz mới
-        </button>
-
+      <div className="w-full max-w-2xl">
         {quiz.length > 0 ? (
           quiz.map((quizDetail, index) => (
-            <ul
+            <div
               key={index}
-              className='rounded mt-3 bg-white text-black p-3 w-[90%] shadow hover:bg-gray-100 cursor-pointer'
+              className="rounded-lg mb-4 bg-white text-gray-800 p-4 shadow-md hover:shadow-lg hover:bg-gray-100 transition cursor-pointer"
               onClick={() => handleClickQuiz(quizDetail)}
             >
-              <p>{index + 1}. {quizDetail.quiz_name}</p>
-            </ul>
+              <p className="text-lg font-medium">
+                {index + 1}. {quizDetail.quiz_name}
+              </p>
+            </div>
           ))
         ) : (
-          <p className='mt-6'>❌ Không có quiz nào</p>
+          <p className="text-gray-400 text-center mt-6">❌ Hiện chưa có quiz nào</p>
         )}
-        {error && <p className="text-red-500 mt-4">{error}</p>}
       </div>
 
       {/* Modal chọn ngôn ngữ */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-            <h3 className="text-lg font-semibold mb-4 text-gray-800">🌐 Chọn ngôn ngữ cho Quiz</h3>
+          <div className="bg-white p-6 rounded-xl shadow-2xl w-[90%] max-w-md">
+            <h3 className="text-xl font-semibold mb-4 text-gray-800 flex items-center">
+              🌐 Chọn ngôn ngữ cho Quiz
+            </h3>
             <select
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded mb-4"
+              className="w-full p-3 border border-gray-300 rounded-lg text-gray-800 mb-6 focus:outline-none focus:ring-2 focus:ring-pink-500"
               disabled={creating}
             >
               <option value="eng">🇬🇧 English</option>
               <option value="vn">🇻🇳 Tiếng Việt</option>
             </select>
-            <div className="flex justify-end">
+            <div className="flex justify-end gap-3">
               <button
-                className="mr-2 px-4 py-2 bg-gray-300 text-gray-800 rounded disabled:opacity-50"
+                className="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition disabled:opacity-50"
                 onClick={() => setShowModal(false)}
                 disabled={creating}
               >
                 Hủy
               </button>
               <button
-                className="px-4 py-2 bg-pink-500 text-white rounded hover:bg-pink-600 disabled:opacity-50"
+                className="px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition disabled:opacity-50"
                 onClick={handleStartCreateQuiz}
                 disabled={creating}
               >
-                {creating ? "Đang tạo..." : "Tạo Quiz"}
+                {creating ? "⏳ Đang tạo..." : "🚀 Tạo Quiz"}
               </button>
             </div>
           </div>
@@ -176,6 +157,7 @@ const QuizScreen = () => {
       )}
     </div>
   )
+
 }
 
 export default QuizScreen

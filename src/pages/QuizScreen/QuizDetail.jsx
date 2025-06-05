@@ -8,6 +8,7 @@ const QuizDetail = () => {
   const quizDetail = location.state?.quizDetail;
 
   const quizzes = quizDetail?.quizzes || [];
+  console.log("🚀 ~ QuizDetail ~ quizzes:", quizzes)
   const [shuffledQuizzes, setShuffledQuizzes] = useState([]);
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -92,7 +93,7 @@ const QuizDetail = () => {
   }
 
   return (
-    <div className="flex flex-col items-center w-full p-10 text-white bg-gray-900 h-screen overflow-y-auto">
+    <div className="flex flex-col items-center w-full p-10 text-white bg-gray-900 h-screen overflow-y-auto overflow-x-hidden">
       {/* 👇 Nút quay lại */}
       <button
         onClick={() => navigate(-1)}

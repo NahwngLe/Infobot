@@ -7,11 +7,13 @@ import 'react-pdf/dist/esm/Page/AnnotationLayer.css'
 import 'react-pdf/dist/esm/Page/TextLayer.css'
 
 pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
+pdfjs.GlobalWorkerOptions.standardFontDataUrl = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/standard_fonts/`
 
 const OperateScreen = () => {
     const [pdfUrl, setPdfUrl] = useState(null)
     const [numPages, setNumPages] = useState(null)
     const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
     const { pdfId } = useParams();
     console.log("OperateScreen");
 
@@ -30,12 +32,11 @@ const OperateScreen = () => {
 
     const fetchPdfUrl = async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/pdf/get-pdf/${pdfId}`)
-            if (!response.ok) {
+            const response = await pdfApi.getPdf(pdfId)
+            if (!response) {
                 throw new Error('Không thể tải PDF')
             }
-            const blob = await response.blob()
-            const url = URL.createObjectURL(blob)
+            const url = URL.createObjectURL(response)
             setPdfUrl(url)
         } catch (err) {
             console.error("Lỗi tải PDF", err)
@@ -44,7 +45,7 @@ const OperateScreen = () => {
     }
 
     return (
-        <div className="pdf-screen h-screen w-[80vw] flex">
+        <div className="pdf-screen h-screen w-[82vw] flex">
             {/* PDF Viewer (react-pdf) */}
             <div className="h-screen w-[37vw] overflow-y-auto border-r border-gray-300">
                 {pdfUrl ? (
