@@ -40,14 +40,14 @@ const PdfList = ({ user }) => {
           {listPdf.map(pdf => (
             <div
               key={pdf.pdf_id}
-              className="text-white bg-transparent p-2 rounded-sm text-lg cursor-pointer  
+              className="text-white bg-transparent p-2 rounded-sm text-lg cursor-pointer w-full 
                           hover:bg-gray-600 hover:bg-opacity-50
                           active:bg-gray-600 active:bg-opacity-40
                           mt-2
                           "
               onClick={() => handleClick(pdf.pdf_id)}
             >
-              {pdf.pdf_name}
+              {pdf.pdf_name.length > 25 ? pdf.pdf_name.slice(0, 25) + "..." : pdf.pdf_name}
             </div>
           ))}
         </div>
