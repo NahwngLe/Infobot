@@ -68,7 +68,7 @@ nahwngle-infobot/
 1.  **Clone the repository:**
 
     ```bash
-    git clone <repository-url>
+    git clone https://github.com/NahwngLe/Infobot.git
     cd infobot
     ```
 2.  **Install dependencies:**
@@ -114,6 +114,7 @@ sequenceDiagram
 ## API Endpoints
 The frontend interacts with the following FastAPI endpoints:
 
+```
 /auth/token: For user login, provides access token.
 /auth/users/me: Get current user information, needs access token.
 /auth/register: For user registration.
@@ -122,6 +123,7 @@ The frontend interacts with the following FastAPI endpoints:
 /pdf/get-all-pdf: Retrieves all PDFs.
 /pdf/create-quiz/{id}?language_of_quiz={language}: Creates a quiz from a PDF ID.
 /pdf/get-quiz/{id}: Retrieves a quiz by ID.
+```
 
 ## Contributing
 Contributions are welcome! Please fork the repository and submit a pull request with your changes.
