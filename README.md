@@ -1,7 +1,7 @@
 # 🤖 Infobot
 
 [![React](https://img.shields.io/badge/Frontend-React-blue?logo=react)](https://reactjs.org/)
-![FastAPI](https://img.shields.io/badge/Backend-FastAPI-green?logo=fastapi)
+[![FastAPI](https://img.shields.io/badge/Backend-FastAPI-green?logo=fastapi)](https://fastapi.tiangolo.com/)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Status](https://img.shields.io/badge/status-Active-brightgreen)
 
