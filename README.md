@@ -12,7 +12,7 @@ This project is a React-based web application built with Vite, designed to inter
 ## Technologies Used
 
 -   **Frontend:** React, Vite, Tailwind CSS
--   **Backend:** FastAPI (Python)
+-   **Backend:** [FastAPI (Python)](https://github.com/NahwngLe/Infobot_backend.git)
 -   **PDF Processing:** pdfjs-dist, react-pdf
 -   **HTTP Client:** Axios
 -   **Routing:** React Router
