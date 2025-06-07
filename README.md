@@ -1,6 +1,6 @@
 # 🤖 Infobot
 
-![React](https://img.shields.io/badge/Frontend-React-blue?logo=react)
+![React](https://react.dev/?logo=react)
 ![FastAPI](https://img.shields.io/badge/Backend-FastAPI-green?logo=fastapi)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Status](https://img.shields.io/badge/status-Active-brightgreen)
