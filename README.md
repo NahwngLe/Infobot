@@ -1,21 +1,37 @@
-# Infobot - React + Vite Application
+# 🤖 Infobot
 
-This project is a React-based web application built with Vite, designed to interact with a FastAPI backend for PDF processing and quiz generation. Users can upload PDFs, generate quizzes from them, and engage in conversations with the PDF content using AI.
+![React](https://img.shields.io/badge/Frontend-React-blue?logo=react)
+![FastAPI](https://img.shields.io/badge/Backend-FastAPI-green?logo=fastapi)
+![License](https://img.shields.io/badge/license-MIT-blue)
+![Status](https://img.shields.io/badge/status-Active-brightgreen)
 
-## Features
+> A modern AI-powered platform that allows users to upload PDFs, automatically generate quizzes from content, and chat with documents interactively. Built with **React + Vite** on the frontend and **FastAPI** on the backend.
 
--   **PDF Upload and Processing:** Users can upload PDF documents for analysis.
--   **Quiz Generation:** The application can automatically generate quizzes based on the content of the uploaded PDF.
--   **Chat Interface:** Users can interact with the PDF content through a conversational chatbot.
--   **User Authentication:** Secure user registration and login functionality.
+---
 
-## Technologies Used
+## ✨ Features
 
--   **Frontend:** React, Vite, Tailwind CSS
--   **Backend:** [FastAPI (Python)](https://github.com/NahwngLe/Infobot_backend.git)
--   **PDF Processing:** pdfjs-dist, react-pdf
--   **HTTP Client:** Axios
--   **Routing:** React Router
+- 📄 **PDF Upload & Processing:** Upload and extract text with OCR support.
+- 🧠 **Quiz Generation:** Automatically generate quizzes from the PDF content.
+- 💬 **AI Chat Interface:** Talk to your PDFs using conversational AI.
+- 🔐 **Authentication System:** Secure login and registration.
+
+---
+
+## 🛠️ Technologies Used
+
+### 📦 Frontend
+- **React** + **Vite** ⚡
+- **Tailwind CSS**
+- **React Router**, **Axios**
+- **PDF Libraries:** `pdfjs-dist`, `react-pdf`
+
+### 🔧 Backend
+- [**FastAPI** (Python)](https://github.com/NahwngLe/Infobot_backend.git)
+- MongoDB, Pinecone, MongoDB (for processing)
+- OpenAI / Gemini API for LLM-based quiz generation
+
+---
 
 ## Folder Structure
 ```
@@ -112,24 +128,25 @@ sequenceDiagram
 ```
 
 ## API Endpoints
-The frontend interacts with the following FastAPI endpoints:
 
-```
-/auth/token: For user login, provides access token.
-/auth/users/me: Get current user information, needs access token.
-/auth/register: For user registration.
-/pdf/upload: Uploads the PDF file.
-/pdf/get-pdf/{pdfId}: Retrieves the PDF file by ID.
-/pdf/get-all-pdf: Retrieves all PDFs.
-/pdf/create-quiz/{id}?language_of_quiz={language}: Creates a quiz from a PDF ID.
-/pdf/get-quiz/{id}: Retrieves a quiz by ID.
-```
+| Method | Endpoint                                    | Description                           |
+| ------ | ------------------------------------------- | ------------------------------------- |
+| `POST` | `/auth/token`                               | Login and receive token               |
+| `GET`  | `/auth/users/me`                            | Get current user info (auth required) |
+| `POST` | `/auth/register`                            | Register new user                     |
+| `POST` | `/pdf/upload`                               | Upload a PDF                          |
+| `GET`  | `/pdf/get-pdf/{pdfId}`                      | Get PDF by ID                         |
+| `GET`  | `/pdf/get-all-pdf`                          | Get all user PDFs                     |
+| `POST` | `/pdf/create-quiz/{id}?language_of_quiz=vi` | Create quiz (with language option)    |
+| `GET`  | `/pdf/get-quiz/{id}`                        | Retrieve quiz                         |
+
 
 ## Contributing
-Contributions are welcome! Please fork the repository and submit a pull request with your changes.
+Contributions are welcome!
+Please fork this repo and submit a pull request.
+Make sure to follow conventional commit messages.
 
 ##License
-[License]
-```
-This `README.md` provides a comprehensive overview of the project, including its features, technologies, setup instructions, and a sequence diagram illustrating the interaction with the FastAPI backend.
-```
+MIT © 2025 — [NahwngLe](https://github.com/NahwngLe)
+
+
