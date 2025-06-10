@@ -1,6 +1,6 @@
 # 🤖 Infobot
 
-![Video](./src/assets/demo_infobot.gif)
+![Video](./src/assets/demo_infobot.mp4)
 
 [![React](https://img.shields.io/badge/Frontend-React-blue?logo=react)](https://reactjs.org/)
 [![FastAPI](https://img.shields.io/badge/Backend-FastAPI-green?logo=fastapi)](https://fastapi.tiangolo.com/)
