@@ -1,5 +1,7 @@
 # 🤖 Infobot
 
+![Video](./src/assets/demo_infobot.gif)
+
 [![React](https://img.shields.io/badge/Frontend-React-blue?logo=react)](https://reactjs.org/)
 [![FastAPI](https://img.shields.io/badge/Backend-FastAPI-green?logo=fastapi)](https://fastapi.tiangolo.com/)
 ![License](https://img.shields.io/badge/license-MIT-blue)
