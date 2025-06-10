@@ -2,3 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+::selection {
+    background: white;
+    color: #ec4899;
+    /* màu hồng */
+}

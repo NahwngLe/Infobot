@@ -26,25 +26,23 @@ const PdfList = ({ user }) => {
   }, [user]);
 
   const handleClick = (id) => {
-    navigate(`/operate/${id}`); // 👈 chuyển hướng sang trang operate
+    navigate(`/operate/${id}`);
   };
 
   return (
     <div className="p-4">
       {isLoading ? (
-        <div className="animate-spin w-10 h-10 border-4 border-pink-500 border-t-transparent rounded-full mx-auto"></div>
+        <div className="animate-spin w-10 h-10 border-4 border-purple-500 border-t-transparent rounded-full mx-auto"></div>
       ) : !user ? (
-        <p className="text-white text-center">Cần đăng nhập để lưu lịch sử</p>
+        <p className="text-blue-100 text-center">Sign in to save and view history</p>
       ) : (
         <div className="flex flex-col space-y-2">
           {listPdf.map(pdf => (
             <div
               key={pdf.pdf_id}
-              className="text-white bg-transparent p-2 rounded-sm text-lg cursor-pointer w-full 
-                          hover:bg-gray-600 hover:bg-opacity-50
-                          active:bg-gray-600 active:bg-opacity-40
-                          mt-2
-                          "
+              className="text-blue-100 bg-transparent p-2 rounded-md cursor-pointer w-full 
+                        hover:bg-opacity-80 hover:text-pink-200
+                        active:bg-blue-900 active:text-white transition duration-200 ease-in-out border border-blue-600"
               onClick={() => handleClick(pdf.pdf_id)}
             >
               {pdf.pdf_name.length > 25 ? pdf.pdf_name.slice(0, 25) + "..." : pdf.pdf_name}
@@ -56,4 +54,4 @@ const PdfList = ({ user }) => {
   );
 };
 
-export default PdfList
+export default PdfList;

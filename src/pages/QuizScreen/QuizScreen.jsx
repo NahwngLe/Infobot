@@ -92,11 +92,13 @@ const QuizScreen = () => {
   }
 
   return (
-    <div className="quiz-screen h-full w-full overflow-y-auto flex flex-col items-center bg-gray-900 text-white px-6 py-8 border-l border-gray-700">
-      <h2 className="text-3xl font-semibold mb-6">📋 Danh sách Quiz</h2>
+    <div className="quiz-screen h-full w-full overflow-y-auto flex flex-col items-center bg-[#1e1e2f] text-gray-100 px-6 py-8 border-l border-gray-700">
+      <h2 className="text-3xl font-semibold mb-6 text-blue-100 hover:text-pink-200 transition duration-200 ease-in-out cursor-pointer">
+        Danh sách Quiz
+      </h2>
 
       <button
-        className="mb-6 px-6 py-3 bg-pink-600 hover:bg-pink-700 transition rounded-xl shadow-lg text-white font-medium"
+        className="mb-6 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 transition rounded-xl shadow text-white font-medium"
         onClick={handleOpenModal}
       >
         ➕ Tạo Quiz mới
@@ -107,7 +109,7 @@ const QuizScreen = () => {
           quiz.map((quizDetail, index) => (
             <div
               key={index}
-              className="rounded-lg mb-4 bg-white text-gray-800 p-4 shadow-md hover:shadow-lg hover:bg-gray-100 transition cursor-pointer"
+              className="rounded-lg mb-4 bg-[#2a2a3c] text-gray-100 p-4 shadow-md hover:shadow-lg hover:bg-[#3a3a4d] transition cursor-pointer border border-gray-600"
               onClick={() => handleClickQuiz(quizDetail)}
             >
               <p className="text-lg font-medium">
@@ -123,14 +125,14 @@ const QuizScreen = () => {
       {/* Modal chọn ngôn ngữ */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-xl shadow-2xl w-[90%] max-w-md">
-            <h3 className="text-xl font-semibold mb-4 text-gray-800 flex items-center">
+          <div className="bg-[#2a2a3c] p-6 rounded-xl shadow-2xl w-[90%] max-w-md text-gray-100">
+            <h3 className="text-xl font-semibold mb-4 flex items-center">
               🌐 Chọn ngôn ngữ cho Quiz
             </h3>
             <select
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg text-gray-800 mb-6 focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full p-3 border border-gray-600 bg-[#1e1e2f] text-gray-100 rounded-lg mb-6 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               disabled={creating}
             >
               <option value="eng">🇬🇧 English</option>
@@ -138,14 +140,14 @@ const QuizScreen = () => {
             </select>
             <div className="flex justify-end gap-3">
               <button
-                className="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400 transition disabled:opacity-50"
+                className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-500 transition disabled:opacity-50"
                 onClick={() => setShowModal(false)}
                 disabled={creating}
               >
                 Hủy
               </button>
               <button
-                className="px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition disabled:opacity-50"
+                className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
                 onClick={handleStartCreateQuiz}
                 disabled={creating}
               >

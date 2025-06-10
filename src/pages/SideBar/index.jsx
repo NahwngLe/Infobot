@@ -30,7 +30,7 @@ const SideBar = ({ setFile, fileInputRef, setPdfId }) => {
     };
 
     return (
-        <div className="h-screen w-[280px] flex flex-col bg-gradient-to-b from-gray-950 via-gray-900 to-gray-800 text-white border-r border-gray-800 shadow-lg">
+        <div className="h-screen w-[280px] flex flex-col bg-gradient-to-b from-blue-950 via-blue-900 to-purple-950 text-white border-r border-blue-900 shadow-xl">
             {/* Header */}
             <div className="p-4 border-b border-gray-700">
                 <div className="flex items-center justify-between mb-6">
@@ -44,7 +44,7 @@ const SideBar = ({ setFile, fileInputRef, setPdfId }) => {
 
                 {user && (
                     <button
-                        className="w-full bg-blue-600 hover:bg-blue-500 rounded-md py-2 text-white font-medium"
+                        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-md py-2 text-white font-semibold shadow-md"
                         onClick={handleUploadFile}
                     >
                         New Conversation
@@ -58,20 +58,20 @@ const SideBar = ({ setFile, fileInputRef, setPdfId }) => {
                 {user ? (
                     <>
                         <div className="space-y-2">
-                            <button className="w-full text-left text-gray-300 hover:bg-gray-700 p-2 rounded-md transition-colors">
+                            <button className="w-full text-left text-blue-200 hover:bg-blue-800 p-2 rounded-md transition-colors">
                                 Dashboard
                             </button>
-                            <button className="w-full text-left text-gray-300 hover:bg-gray-700 p-2 rounded-md transition-colors">
+                            <button className="w-full text-left text-blue-200 hover:bg-blue-800 p-2 rounded-md transition-colors">
                                 Documents
                             </button>
-                            <button className="w-full text-left text-gray-300 hover:bg-gray-700 p-2 rounded-md transition-colors">
+                            <button className="w-full text-left text-blue-200 hover:bg-blue-800 p-2 rounded-md transition-colors">
                                 History
                             </button>
                         </div>
 
                         {/* Recent Documents */}
                         <div className="mt-8">
-                            <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">
+                            <h2 className="text-xs font-semibold text-purple-300 uppercase tracking-wider mb-4">
                                 Recent Documents
                             </h2>
                             <div className="space-y-2">
@@ -94,7 +94,7 @@ const SideBar = ({ setFile, fileInputRef, setPdfId }) => {
 
             {/* User Profile */}
             {user && (
-                <div className="p-4 border-t border-gray-700 bg-gray-900">
+                <div className="p-4 border-t border-blue-800 bg-blue-950">
                     <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-4">
                             <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg">
