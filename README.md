@@ -146,7 +146,7 @@ Contributions are welcome!
 Please fork this repo and submit a pull request.
 Make sure to follow conventional commit messages.
 
-##License
+## License
 MIT © 2025 — [NahwngLe](https://github.com/NahwngLe)
 
 
